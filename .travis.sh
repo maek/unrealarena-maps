@@ -35,14 +35,12 @@ fi
 
 # before_install
 before_install() {
-	# sudo apt-get -qq update
-	sudo apt-get -y update
+	sudo apt-get -qq update
 }
 
 # install
 install() {
-	# sudo apt-get -qq install libjpeg-turbo8\
-	sudo apt-get -y install libjpeg-turbo8\
+	sudo apt-get -qq install libjpeg-turbo8\
 	                         libpng12-0\
 	                         libxml2\
 	                         zlib1g
@@ -54,7 +52,6 @@ install() {
 	                          ..
 	cmake --build . --target q3map2 -- -j8 ||
 	cmake --build . --target q3map2 -- VERBOSE=1
-	cmake --build . --target install
 	# make -j8 q3map2 || make VERBOSE=1 q3map2
 	# make -j8 BUILD=native DEPENDENCIES_CHECK=off binaries-q3map2
 }
