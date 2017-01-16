@@ -54,6 +54,7 @@ install() {
 	                          ..
 	cmake --build . --target q3map2 -- -j8 ||
 	cmake --build . --target q3map2 -- VERBOSE=1
+	cmake --build . --target install
 	# make -j8 q3map2 || make VERBOSE=1 q3map2
 	# make -j8 BUILD=native DEPENDENCIES_CHECK=off binaries-q3map2
 }
