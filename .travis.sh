@@ -35,18 +35,17 @@ fi
 
 # before_install
 before_install() {
-	sudo apt-get -qq update
+	# sudo apt-get -qq update
+	sudo apt-get -y update
 }
 
 # install
 install() {
-	# sudo apt-get -qq install libc6\
-	#                          libglib2.0-0\
-	#                          libjpeg-turbo8\
-	#                          libpcre3\
-	#                          libpng12-0\
-	#                          libxml2\
-	#                          zlib1g
+	# sudo apt-get -qq install libjpeg-turbo8\
+	sudo apt-get -y install libjpeg-turbo8\
+	                         libpng12-0\
+	                         libxml2\
+	                         zlib1g
 	git clone https://gitlab.com/xonotic/netradiant.git
 	cd netradiant
 	mkdir build
