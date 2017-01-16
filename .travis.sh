@@ -48,8 +48,7 @@ install() {
 	cd netradiant
 	mkdir build
 	cd build
-	cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release\
-	                          ..
+	cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
 	cmake --build . --target q3map2 -- -j8 ||
 	cmake --build . --target q3map2 -- VERBOSE=1
 }
@@ -57,28 +56,37 @@ install() {
 # before_script
 before_script() {
 	mkdir -p "${HOMEPATH}"
-	ln -sv "$(readlink -f "maps/${MAP}")" "${HOMEPATH}/pkg"
+	ln -s "$(readlink -f "maps/${MAP}")" "${HOMEPATH}/pkg"
 }
 
 # script
 script() {
 	cd "maps/${MAP}"
-	q3map2 -threads 8 -fs_homebase .unrealarena -fs_game pkg -meta\
-	                                                         -custinfoparms\
-	                                                         -keeplights\
-	                                                         "maps/${MAP}.map"
-	q3map2 -threads 8 -fs_homebase .unrealarena -fs_game pkg -vis\
-	                                                         -saveprt\
-	                                                         "maps/${MAP}.map"
-	q3map2 -threads 8 -fs_homebase .unrealarena -fs_game pkg -light\
-	                                                         -faster\
-	                                                         "maps/${MAP}.map"
+	q3map2 -threads 8\
+	       -fs_homebase .unrealarena\
+	       -fs_game pkg\
+	       -meta\
+	       -custinfoparms\
+	       -keeplights\
+	       "maps/${MAP}.map"
+	q3map2 -threads 8\
+	       -fs_homebase .unrealarena\
+	       -fs_game pkg\
+	       -vis\
+	       -saveprt\
+	       "maps/${MAP}.map"
+	q3map2 -threads 8\
+	       -fs_homebase .unrealarena\
+	       -fs_game pkg\
+	       -light\
+	       -faster\
+	       "maps/${MAP}.map"
 	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x "maps/${MAP}.srf" "maps/${MAP}.prt"
 }
 
 # before_deploy
 before_deploy() {
-	if [ "${MAPVERSION}" == "${TAGMAPVERSION}" ]; then
+	if [ "${MAPVERSION}" = "${TAGMAPVERSION}" ]; then
 		curl -LsO "https://github.com/unrealarena/unrealarena-maps/releases/download/${TAG}/map-${MAP}.pre.zip"
 	else
 		zip -9 "map-${MAP}.pre.zip" "map-${MAP}_${MAPVERSION}.pk3"
