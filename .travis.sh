@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (C) 2015-2016  Unreal Arena
+# Copyright (C) 2015-2017  Unreal Arena
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -35,27 +35,28 @@ fi
 
 # before_install
 before_install() {
-	sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
 	sudo apt-get -qq update
 }
 
 # install
 install() {
-	sudo apt-get -qq install gcc-4.7\
-	                         g++-4.7\
-	                         libc6\
-	                         libglib2.0-0\
-	                         libjpeg-turbo8\
-	                         libpcre3\
-	                         libpng12-0\
-	                         libxml2\
-	                         zip\
-	                         zlib1g
-	sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.7 100\
-	                         --slave   /usr/bin/g++ g++ /usr/bin/g++-4.7
-	git clone https://github.com/xonotic/netradient.git
-	cd netradient
-	make -j8 BUILD=native DEPENDENCIES_CHECK=off binaries-q3map2
+	# sudo apt-get -qq install libc6\
+	#                          libglib2.0-0\
+	#                          libjpeg-turbo8\
+	#                          libpcre3\
+	#                          libpng12-0\
+	#                          libxml2\
+	#                          zlib1g
+	git clone https://gitlab.com/xonotic/netradiant.git
+	cd netradiant
+	mkdir build
+	cd build
+	cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release\
+	                          ..
+	cmake --build . --target q3map2 -- -j8 ||
+	cmake --build . --target q3map2 -- VERBOSE=1
+	# make -j8 q3map2 || make VERBOSE=1 q3map2
+	# make -j8 BUILD=native DEPENDENCIES_CHECK=off binaries-q3map2
 }
 
 # before_script
