@@ -58,7 +58,8 @@ install() {
 before_script() {
 	mkdir -p "${HOMEPATH}"
 	pwd
-	ln -sv "$(pwd)/maps/${MAP}" "${HOMEPATH}/pkg"
+	# ln -sv "$(pwd)/maps/${MAP}" "${HOMEPATH}/pkg"
+	ln -sv "$(realpath "maps/${MAP}")" "${HOMEPATH}/pkg"
 }
 
 # script
