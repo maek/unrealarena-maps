@@ -6,13 +6,13 @@ sudo: required
 
 env:
   global:
-    - PATH="${TRAVIS_BUILD_DIR}/netradient/install:${PATH}"
-    - HOMEPATH="${HOME}/.unrealarena"
-    - TAG="$(git describe --abbrev=0 HEAD^)"
+    - PATH=${TRAVIS_BUILD_DIR}/netradiant/install:${PATH}
+    - HOMEPATH=${HOME}/.unrealarena
+    - TAG=$(git describe --abbrev=0 HEAD^)
   matrix:
     - MAP=campgrounds
-      MAPVERSION="$(git show :maps/${MAP}/VERSION)"
-      TAGMAPVERSION="$(git show ${TAG}:maps/${MAP}/VERSION)"
+      MAPVERSION=$(git show :maps/${MAP}/VERSION)
+      TAGMAPVERSION=$(git show ${TAG}:maps/${MAP}/VERSION)
 
 before_install:
   - ./.travis.sh before_install
