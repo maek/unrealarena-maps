@@ -57,9 +57,7 @@ install() {
 # before_script
 before_script() {
 	mkdir -p "${HOMEPATH}"
-	pwd
-	# ln -sv "$(pwd)/maps/${MAP}" "${HOMEPATH}/pkg"
-	ln -sv "$(realpath "maps/${MAP}")" "${HOMEPATH}/pkg"
+	ln -sv "$(readlink -f "maps/${MAP}")" "${HOMEPATH}/pkg"
 }
 
 # script
