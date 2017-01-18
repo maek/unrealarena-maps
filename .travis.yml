@@ -6,7 +6,7 @@ sudo: required
 
 env:
   global:
-    - PATH=${TRAVIS_BUILD_DIR}/netradiant/build:${PATH}
+    - PATH=${TRAVIS_BUILD_DIR}/crunch/crnlib:${TRAVIS_BUILD_DIR}/netradiant/build:${PATH}
     - HOMEPATH=${HOME}/.unrealarena
     - TAG=$(git describe --abbrev=0 HEAD^)
   matrix:

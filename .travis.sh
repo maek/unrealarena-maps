@@ -54,11 +54,10 @@ install() {
 	cd ../..
 	git clone https://github.com/BinomialLLC/crunch
 	cd crunch
-	# sed -i '24s/size_t/auto/' crnlib/crn_vector.cpp
+	git checkout bf5e9d9
 	cd crnlib
 	make -j8 ||
 	make VERBOSE=1
-	./crunch
 	cd ../..
 }
 
@@ -90,7 +89,8 @@ script() {
 	       -light\
 	       -faster\
 	       "maps/${MAP}.map"
-	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x "maps/${MAP}.srf" "maps/${MAP}.prt"
+	crunch -outsamedir -fileformat crn -noprogress -file textures/dev/\*.tga
+	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x \*.srf \*.prt \*.tga
 }
 
 # before_deploy
