@@ -51,6 +51,14 @@ install() {
 	cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release ..
 	cmake --build . --target q3map2 -- -j8 ||
 	cmake --build . --target q3map2 -- VERBOSE=1
+	cd ../..
+	git clone https://github.com/BinomialLLC/crunch
+	cd crunch
+	sed -i '24s/size_t/auto/' crnlib/crn_vector.cpp
+	cd crnlib
+	make -j8 ||
+	make VERBOSE=1
+	cd ../..
 }
 
 # before_script
