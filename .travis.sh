@@ -54,10 +54,11 @@ install() {
 	cd ../..
 	git clone https://github.com/BinomialLLC/crunch
 	cd crunch
-	sed -i '24s/size_t/auto/' crnlib/crn_vector.cpp
+	# sed -i '24s/size_t/auto/' crnlib/crn_vector.cpp
 	cd crnlib
 	make -j8 ||
 	make VERBOSE=1
+	./crunch
 	cd ../..
 }
 
