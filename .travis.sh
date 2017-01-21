@@ -93,9 +93,7 @@ script() {
 	find textures -name \*_n.tga -exec crunch -outsamedir -noprogress -quality 255 -DXN -renormalize -file '{}' \+
 	find textures -name \*_s.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
 	find textures -name \*_g.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
-	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x \*.prt\
-	                                                  \*.srf\
-	                                                  \*.tga
+	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x common.shader shaderlist.txt textures/common \*.prt \*.srf \*.tga
 }
 
 # before_deploy
