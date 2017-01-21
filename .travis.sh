@@ -89,8 +89,13 @@ script() {
 	       -light\
 	       -faster\
 	       "maps/${MAP}.map"
-	crunch -outsamedir -fileformat crn -noprogress -file textures/dev/\*.tga
-	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x \*.srf \*.prt \*.tga
+	crunch -outsamedir -fileformat crn -noprogress -quality 255 -file textures/dev/\*_d.tga\
+	                                                                  textures/dev/\*_s.tga\
+	                                                                  textures/dev/\*_g.tga
+	crunch -outsamedir -fileformat crn -noprogress -quality 255 -DXN -renormalize -file textures/dev/\*_n.tga
+	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x \*.prt\
+	                                                  \*.srf\
+	                                                  \*.tga
 }
 
 # before_deploy
