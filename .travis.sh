@@ -89,10 +89,10 @@ script() {
 	       -light\
 	       -faster\
 	       "maps/${MAP}.map"
-	crunch -outsamedir -fileformat crn -noprogress -quality 255 -file textures/dev/\*_d.tga\
-	                                                                  textures/dev/\*_s.tga\
-	                                                                  textures/dev/\*_g.tga
-	crunch -outsamedir -fileformat crn -noprogress -quality 255 -DXN -renormalize -file textures/dev/\*_n.tga
+	find textures -name \*_d.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
+	find textures -name \*_n.tga -exec crunch -outsamedir -noprogress -quality 255 -DXN -renormalize -file '{}' \+
+	find textures -name \*_s.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
+	find textures -name \*_g.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
 	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x \*.prt\
 	                                                  \*.srf\
 	                                                  \*.tga
