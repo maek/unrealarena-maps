@@ -98,8 +98,8 @@ script() {
 	                                                maps/${MAP}.srf\
 	                                                scripts/common.shader\
 	                                                scripts/shaderlist.txt\
-	                                                textures/common/\*
-	                                                \*.tga
+	                                                textures/common/\*\
+	                                                textures/\*.tga
 }
 
 # before_deploy
