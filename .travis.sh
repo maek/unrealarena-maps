@@ -64,36 +64,42 @@ install() {
 # before_script
 before_script() {
 	mkdir -p "${HOMEPATH}"
-	ln -s "$(readlink -f "maps/${MAP}")" "${HOMEPATH}/pkg"
+	ln -s "$(readlink -f maps/${MAP})" "${HOMEPATH}/pkg"
 }
 
 # script
 script() {
-	cd "maps/${MAP}"
+	cd maps/${MAP}
 	q3map2 -threads 8\
 	       -fs_homebase .unrealarena\
 	       -fs_game pkg\
 	       -meta\
 	       -custinfoparms\
 	       -keeplights\
-	       "maps/${MAP}.map"
+	       maps/${MAP}.map
 	q3map2 -threads 8\
 	       -fs_homebase .unrealarena\
 	       -fs_game pkg\
 	       -vis\
 	       -saveprt\
-	       "maps/${MAP}.map"
+	       maps/${MAP}.map
 	q3map2 -threads 8\
 	       -fs_homebase .unrealarena\
 	       -fs_game pkg\
 	       -light\
 	       -faster\
-	       "maps/${MAP}.map"
+	       maps/${MAP}.map
 	find textures -name \*_d.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
 	find textures -name \*_n.tga -exec crunch -outsamedir -noprogress -quality 255 -DXN -renormalize -file '{}' \+
 	find textures -name \*_s.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
 	find textures -name \*_g.tga -exec crunch -outsamedir -noprogress -quality 255 -file '{}' \+
-	zip -r9 "../../map-${MAP}_${MAPVERSION}.pk3" . -x common.shader shaderlist.txt textures/common \*.prt \*.srf \*.tga
+	zip -r9 ../../map-${MAP}_${MAPVERSION}.pk3 . -x maps/${MAP}.map\
+	                                                maps/${MAP}.prt\
+	                                                maps/${MAP}.srf\
+	                                                scripts/common.shader\
+	                                                scripts/shaderlist.txt\
+	                                                textures/common/\*
+	                                                textures/\*.tga
 }
 
 # before_deploy
@@ -101,7 +107,7 @@ before_deploy() {
 	if [ "${MAPVERSION}" = "${TAGMAPVERSION}" ]; then
 		curl -LsO "https://github.com/unrealarena/unrealarena-maps/releases/download/${TAG}/map-${MAP}.pre.zip"
 	else
-		zip -9 "map-${MAP}.pre.zip" "map-${MAP}_${MAPVERSION}.pk3"
+		zip -9 map-${MAP}.pre.zip map-${MAP}_${MAPVERSION}.pk3
 	fi
 }
 
