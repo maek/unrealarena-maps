@@ -99,7 +99,7 @@ script() {
 	                                                scripts/common.shader\
 	                                                scripts/shaderlist.txt\
 	                                                textures/common/\*
-	                                                textures/\*.tga
+	                                                \*.tga
 }
 
 # before_deploy
