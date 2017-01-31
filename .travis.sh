@@ -36,6 +36,7 @@ fi
 # before_install
 before_install() {
 	sudo apt-get -qq update
+	cmake --version
 }
 
 # install
